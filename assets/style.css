@@ -1,0 +1,67 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+.container {
+    border-radius: 12px;
+    padding: 30px;
+    max-width: 500px;
+    /* width: 90%; */
+    text-align: center;
+    margin: auto;
+    
+
+
+}
+
+h2 {
+    border-bottom: 2px solid black;
+    font-size: 30px;
+    padding-bottom: 10px;
+}
+
+#answerlist {
+    display: none;
+    flex-direction: column;
+}
+
+.choiceBtn {
+   width: 100%;
+   /* border: 2px solid grey;  */
+   padding: 15px;
+   margin-top: 10px;
+   text-align: left;
+   border-radius: 9px;
+   /* box-shadow: 2px 2px ; */
+}
+
+.choiceBtn:hover {
+    opacity: 0.5; 
+}
+
+.choiceBtn:active {
+    font-size: 105%;
+    box-shadow: 0 0 8px #000 inset;
+  }
+
+#startbtn, #scorebtns{
+    padding: 15px;
+    border-radius: 9px;
+    color: #fff;
+    background-color: purple
+}
+
+#scorebtns, #startbtn:hover {
+    opacity: 0.5; 
+}
+
+#time {
+    font-weight: 600;
+    font-size: 120%;
+}

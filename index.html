@@ -5,66 +5,40 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Test Your knowledge</title>
-  <link rel="stylesheet" href="./assets/css/reset.css" />
-  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="stylesheet" href="./assets/style.css" />
 </head>
 
 <body>
   <header>
-    <h1>The CSS Blog</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">Resources</a></li>
-      </ul>
-    </nav>
+    <h1 style="text-align:center;"> Welcome to the coding Quiz!</h1>
+    </br>
   </header>
 
-  <main>
-    <section>
-      <article>
-        <h2>A List of Learning Resources</h2>
+  <main class="container">
         <div>
-          <p>A successful web developer is one that knows that there's always room to grow and learn. You may not use
-            every single tool that's offered to you, but it's always good to know that certain tools exist. Check out
-            these resources to broaden your knowledge:</p>
-          <ul>
-            <li>
-              Mozilla Developer Network's documentation on <a
-                href="https://developer.mozilla.org/en-US/docs/Web/CSS">Cascading Style Sheets (CSS)</a> is a good
-              resource for all things CSS and web development in general.
-            </li>
-            <li>Our own <a href="./assets/css/reset.css">reset.css</a> file shows how to set default browser styles.
-            </li>
-            <li>Another reset style sheet called
-              <a href="https://necolas.github.io/normalize.css/8.0.1/normalize.css">normalize.css</a> is popular in the
-              web development community</li>
-            <li>Our own <a href="./assets/css/style.css">style.css</a> file shows how we've designed the page we're
-              reading!
-            </li>
-
-            <li>The popular blog, <a href="https://css-tricks.com/">CSS Tricks,</a> has a lot of articles and resources
-              to make you a better developer!
-            </li>
-
-          </ul>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil natus recusandae amet nostrum odit, ut unde
-            non sint, quia sed inventore odio, delectus iure! Eligendi vitae fuga blanditiis accusamus tempore! Lorem
-            ipsum dolor sit amet consectetur adipisicing elit. Consectetur, nisi, saepe quas sint consequuntur esse
-            voluptatum, dolores dolor aspernatur neque laborum dolorum dolorem repudiandae. Dignissimos eveniet sequi
-            corporis tempore ullam!</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil natus recusandae amet nostrum odit, ut unde
-            non sint, quia sed inventore odio, delectus iure! Eligendi vitae fuga blanditiis accusamus tempore!</p>
+          <h2 id="QuesText" style="text-align:center;"> Welcome! Let the Quiz begin! </h2>
+          
+          <ul id="scores"></ul>
+          <div id="answerlist" class="choiceBtn">
+            <!-- <button class="choiceBtn">Answer 1</button>
+            <button class="choiceBtn">Answer 2</button>
+            <button class="choiceBtn">Answer 3</button>
+            <button class="choiceBtn">Answer 4</button> -->
+          </div>
+        </br>
+            <button id="scorebtns"> View Score</button>
+            <button id ="startbtn">Start the Quiz</button>
+        </br>
+          <p id="output"></p>
+        </br>
+       
+          <p id="time" style="text-align:center;"></p>
         </div>
-      </article>
-    </section>
+
   </main>
 
-  <footer>
-    <span>Thanks for visiting!</span>
-  </footer>
+  <script src="./script.js"></script>
+
 </body>
 
 </html>
