@@ -9,14 +9,16 @@ h1 {
 }
 
 .container {
-    border-radius: 12px;
+    /* border-radius: 12px; */
     padding: 30px;
     max-width: 500px;
     /* width: 90%; */
     text-align: center;
     margin: auto;
-    
-
+    border: 3px solid grey; 
+    border-radius: 10px;
+    box-shadow: 2px 2px ;
+    background-color: moccasin;
 
 }
 
@@ -37,8 +39,10 @@ h2 {
    padding: 15px;
    margin-top: 10px;
    text-align: left;
-   border-radius: 9px;
-   /* box-shadow: 2px 2px ; */
+   border-radius: 10px;
+   color: #fff;
+   background-color: purple;
+   
 }
 
 .choiceBtn:hover {
@@ -47,19 +51,27 @@ h2 {
 
 .choiceBtn:active {
     font-size: 105%;
-    box-shadow: 0 0 8px #000 inset;
+    /* box-shadow: 0 0 8px #000 inset; */
   }
 
 #startbtn, #scorebtns{
     padding: 15px;
     border-radius: 9px;
     color: #fff;
-    background-color: purple
+    background-color: purple;
 }
 
 #scorebtns, #startbtn:hover {
     opacity: 0.5; 
 }
+
+#output {
+    padding: 15px;
+    font-size: 110%;
+    color: blue;
+    font-weight: 600;
+}
+
 
 #time {
     font-weight: 600;

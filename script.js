@@ -1,142 +1,249 @@
-var Answerslist = [
-    {   q: 'What does CSS stand for?',
-        a: [
-          { text: "Casual Style Sheets", correct: false},  
-          { text: "Casual Sheets Sheets", correct: false},  
-          { text: "Cascading Style Sheets", correct: true},  
-          { text: "Cascading Style Shots", correct: false},  
-        ]
-    },
 
-    {   q: 'What is the name of the data type that take the values true or false?',
-        a: [
-            { text: "Boolean", correct: true},  
-            { text: "String", correct: false},  
-            { text: "Number", correct: true},  
-            { text: "Java", correct: false},  
-          ]  
-    },
 
-    {   q:  'Is JavaScript and Java the same?',
-        a: [
-            { text: "Yes", correct: false},  
-            { text: "No", correct: false},  
-            { text: "Maybe", correct: true},  
-            { text: "None of Above", correct: false},  
-          ]
-    },
 
-    {   q: 'What is the command use to stop the loop?',
-        a: [ 
-            { text: "stop", correct: false},  
-            { text: "pause", correct: false},  
-            { text: "break", correct: true},  
-            { text: "hold", correct: false},  
-          ]
-    }
+const Answerslist = [
+  {
+    question: 'What does CSS stand for?',
+    answers: ['Casual Style Sheets', 'Casual Sheets Sheets', 'Cascading Style Sheets', 'Cascading Style Shots'],
+    correct: 'Cascading Style Sheets',
+  },
+
+  {
+    question: 'What is the name of the data type that take the values true or false?',
+    answers: ['Boolean', 'String', 'Number', 'Java'],
+    correct: 'Boolean',
+  },
+
+  {
+    question: 'Is JavaScript and Java the same?',
+    answers: ['Yes', 'No', 'Maybe', 'None of Above'],
+    correct: 'No',
+
+  },
+
+  {
+    question: 'What is the command use to stop the loop?',
+    answers: ['stop', 'pause', 'break', 'hold'],
+    correct: 'break',
+
+  }
 ];
+
+
+
+
+
 var QuestionsEl = document.getElementById('QuesText');
 var AnswerEl = document.getElementById('answerlist')
 var strtBtnEl = document.getElementById('startbtn');
 var scoreBtnEl = document.getElementById('scorebtns')
 var clockcountdown = document.getElementById('time');
-var scores = document.querySelector("ul");
+var checkanswer = document.getElementById('output')
+var scoreslist = document.querySelector("ul");
 var header = document.querySelector("header");
-var scoreStorage = JSON.parse(localStorage.getItem("topscores"));
-var userStorage = JSON.parse(localStorage.getItem("UserScore"));
+var correctanswer = false;
+var questNum = 0;
+var button = 0;
+
+var userStorage = []
+if (localStorage.getItem("UserScore")) {
+  userStorage = JSON.parse(localStorage.getItem("UserScore"));
+};
 var score = 0;
 var questioncount = 0;
 var secondsLeft = 65;
+var timerInterval;
 
-
-if (scoreStorage === null) {
-  userStorage = ["1", "2", "3", "4", "5"];
-  scoreStorage = ["1", "2", "3", "4", "5"];
-}
 
 function top5() {
+  clearInterval(timerInterval);
+  EndQues()
   header.textContent = "";
-  QuestionsEl.textContent = "Top 5 high scores";
+  QuestionsEl.textContent = "Top 5 Scores";
+  clockcountdown.setAttribute("style", "display:none");
+  
+
   strtBtnEl.setAttribute("style", "display:none");
+  scoreBtnEl.style.textAlign = "center"
   scoreBtnEl.textContent = "Return";
+
   var ListScore = [""];
 
-// for lopps for the user score value
-  for (i=0; i<5; i++) {
-    ListScore[1] = document.createElement("li");
-    ListScore[1].textContent = userStorage[i] + " -----" + scoreStorage[i];
-    scores.appendChild(ListScore[i]);
+  for (i = 0; i < 5; i++) {
+    
+    ListScore[i] = document.createElement("li");
+    console.log(userStorage);
+    ListScore[i].textContent = userStorage[i]
+    scoreslist.appendChild(ListScore[i]);
   }
 
   scoreBtnEl.removeEventListener("click", top5);
+  
+
   scoreBtnEl.addEventListener("click", mainPage);
+
 }
 //  creating a function for the main pagee
 function mainPage() {
-  scores.header.textContent="Welcome to the coding Quiz!";
-  QuestionsEl.textContent="Welcomd! Let the Quiz begin!";
-  strtBtnEl.setAttribute("style", "display:row");
-  scoreBtnEl.textContent="View Score";
-  scoreBtnEl.removeEventListener("click", mainPage);
-  scoreBtnEl.addEventListener("click", top5);
-}
+
+  window.location.href = "./index.html"
+};
 scoreBtnEl.addEventListener("click", top5);
 
 
-
-
 function timerupdate() {
-    // Sets interval in variable
-    var timerInterval = setInterval(function() {
-      secondsLeft--;
-      clockcountdown.textContent = "Time: " + secondsLeft;
-  
-      if(secondsLeft === 0) {
-        // Stops execution of action at set interval
-        clearInterval(timerInterval);
-        // Calls function to generate a message
-        sendMessage();
-      }
-  
-    }, 1000);
-  };
+  // Sets interval in variable
+   timerInterval = setInterval(function () {
+    secondsLeft--;
+    clockcountdown.textContent = "Time: " + secondsLeft;
+
+    if (secondsLeft < 0) {
+      // Stops execution of action at set interval
+      clearInterval(timerInterval);
+      // Calls function to generate a message
+      sendMessage();
+    }
+
+  }, 1000);
+};
+
+function sendMessage() {
+
+  if (confirm('Gameover!" + " Would you like to view your score?')) {
    
-  function sendMessage() {
-    clockcountdown.textContent = "Gameover!" +  " Would you like to view your score?";
+    return top5();
+  } else {
+    return mainPage();
   }
-  
-  function QuizStart() {
-    questioncount = 0;
-    score = 0;
-    LoadQuestions();
-  }
+};
 
-  function LoadQuestions() {
-    var CurrentQues = Answerslist[questioncount];
-    var questNum = questioncount + 1;
-    QuestionsEl.innerHTML = questNum+ ". " + CurrentQues.q
+function QuizStart() {
+  // questioncount = 0;
+  // score = 0;
+  LoadQuestions();
+}
 
-    CurrentQues.a.forEach(answer => {
-      var button = document.createElement("button");
-      button.innerHTML = answer.text;
-      button.classList.add("choiceBtn");
-      AnswerEl.appendChild(button);
-    });
+function LoadQuestions() {
+  // checkanswer.innerHTML = '';
+
+  CurrentQues = Answerslist[questioncount];
+  questNum = questioncount + 1;
+
+  QuestionsEl.innerHTML = questNum + ". " + CurrentQues.question;
+
+  CurrentQues.answers.forEach(answer => {
+    button = document.createElement("button");
+    button.innerHTML = answer;
+    button.classList.add("choiceBtn");
+    AnswerEl.appendChild(button);
+    button.addEventListener('click', countClicks);
+    button.addEventListener('click', NxtQuest);
+  });
+  console.log(CurrentQues)
+
+ 
+};
+
+function EndQues() {
+
+  let options = document.querySelectorAll('.choiceBtn');
+
+  for (let i = 0; i < options.length; i++) {
+    options[i].style.display = "none";
   }
+  scoreBtnEl.style.display = 'flex';
+
+}
+
+
+function NxtQuest() {
+
+  if (questioncount == Answerslist.length - 1) {
+    return savescore()
+
+  } else {
+
+    questioncount++
+
+    CurrentQues = Answerslist[questioncount];
+    questNum = questioncount + 1;
+
+    QuestionsEl.innerHTML = questNum + ". " + CurrentQues.question;
+
+    let options = document.querySelectorAll('.choiceBtn');
+    for (let i = 0; i < options.length; i++) {
+      options[i].innerHTML = CurrentQues.answers[i];
+
+      
+    }
+  };
+
+
+};
+
+
+
+function countClicks() {
+
+  console.log(questioncount)
+  console.log(Answerslist.length)
+  if (questioncount == Answerslist.length) {
+    // if (questioncount == Answerslist.length - 1) {
+    return top5()
+    top5()
+  } else {
+    console.log(this.textContent)
+    console.log(Answerslist[questioncount].correct)
+    correctanswer = Answerslist[questioncount].correct
+    if (this.textContent == Answerslist[questioncount].correct) {
+      score = score + 1;
+      checkanswer.innerHTML = 'Correct';
+    } else {
+      secondsLeft -= 25
+      checkanswer.innerHTML = 'Incorrect';
+    }
+  }
+};
+
 
 // create event thats starts once the button is click
-strtBtnEl.addEventListener("click", function() {
-    
-    timerupdate()
-    // LoadQuestions()
-    QuizStart()
-    AnswerEl.style.display = "flex";
-  
+strtBtnEl.addEventListener("click", function (event) {
+  event.preventDefault();
+  QuestionsEl.innerHTML = Answerslist[questNum];
+
+  timerupdate();
+  QuizStart();
+  strtBtnEl.style.display = "none";
+  AnswerEl.style.display = "flex";
+  scoreBtnEl.style.display = 'none';
 
 });
 
 
+function savescore() {
 
+  let initial = prompt('Enter your Initial');
+  console.log(initial, ' ', score);
+
+  
+  // var newScore = { score: score, initial: initial };
+  // userStorage.push(newScore);
+  // console.log(userStorage);
+  // window.localStorage.setItem("userScore", JSON.stringify(userStorage));
+  
+  // var lastScore = JSON.parse(localStorage.getItem('userScore'));
+  
+  if (initial !== "" || initial !== null) {
+    return top5();
+  } else {
+    return mainPage;
+  }
+
+
+};
+
+
+console.log(userStorage);
 
 
 
