@@ -46,15 +46,15 @@ var questNum = 0;
 var button = 0;
 
 var userStorage = []
-if (localStorage.getItem("UserScore")) {
-  userStorage = JSON.parse(localStorage.getItem("UserScore"));
+if (localStorage.getItem("userScore")) {
+  userStorage = JSON.parse(localStorage.getItem("userScore"));
 };
 var score = 0;
 var questioncount = 0;
 var secondsLeft = 65;
 var timerInterval;
 
-
+// create the scoreboard 
 function top5() {
   clearInterval(timerInterval);
   EndQues()
@@ -90,7 +90,7 @@ function mainPage() {
 };
 scoreBtnEl.addEventListener("click", top5);
 
-
+// adds an clock counter to the bottom of the page
 function timerupdate() {
   // Sets interval in variable
    timerInterval = setInterval(function () {
@@ -107,9 +107,11 @@ function timerupdate() {
   }, 1000);
 };
 
+// message that display once the time ran out
+
 function sendMessage() {
 
-  if (confirm('Gameover!" + " Would you like to view your score?')) {
+  if (confirm('Gameover!" + " Would you like to view the scoreboard?')) {
    
     return top5();
   } else {
@@ -118,13 +120,13 @@ function sendMessage() {
 };
 
 function QuizStart() {
-  // questioncount = 0;
-  // score = 0;
+ 
   LoadQuestions();
 }
 
+// load the next questions each time an answer was choose
 function LoadQuestions() {
-  // checkanswer.innerHTML = '';
+
 
   CurrentQues = Answerslist[questioncount];
   questNum = questioncount + 1;
@@ -182,7 +184,7 @@ function NxtQuest() {
 };
 
 
-
+// fuction that check if the answer was correctly answered and keep track of the scores
 function countClicks() {
 
   console.log(questioncount)
@@ -196,7 +198,7 @@ function countClicks() {
     console.log(Answerslist[questioncount].correct)
     correctanswer = Answerslist[questioncount].correct
     if (this.textContent == Answerslist[questioncount].correct) {
-      score = score + 1;
+      score = score + 1*10;
       checkanswer.innerHTML = 'Correct';
     } else {
       secondsLeft -= 25
@@ -219,24 +221,23 @@ strtBtnEl.addEventListener("click", function (event) {
 
 });
 
-
+// create function for the score to be save to the local storage
 function savescore() {
 
   let initial = prompt('Enter your Initial');
-  console.log(initial, ' ', score);
-
-  
-  // var newScore = { score: score, initial: initial };
-  // userStorage.push(newScore);
-  // console.log(userStorage);
-  // window.localStorage.setItem("userScore", JSON.stringify(userStorage));
-  
-  // var lastScore = JSON.parse(localStorage.getItem('userScore'));
-  
-  if (initial !== "" || initial !== null) {
-    return top5();
+  if (initial === "" || initial === null) {
+    return savescore();
   } else {
-    return mainPage;
+    console.log(initial, ' ', score);
+    
+    
+    var newScore = `score: ${score}, user: ${initial}`;
+    userStorage.push(newScore);
+    console.log(userStorage);
+    window.localStorage.setItem("userScore", JSON.stringify(userStorage));
+    
+    return top5();
+  
   }
 
 
